@@ -1,0 +1,9 @@
+:root {
+    touch-action: none;
+    line-height: 1.6;
+    letter-spacing: .025em;
+}
+
+::selection {
+    background: none;
+}
