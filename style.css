@@ -1,9 +1,37 @@
 :root {
+    box-sizing: border-box;
     touch-action: none;
     line-height: 1.6;
     letter-spacing: .025em;
+    font-size: 16px;
 }
 
 ::selection {
     background: none;
 }
+
+#sortBox {
+    background: #2f2f2f;
+    height: 500px;
+    width: 500px;
+}
+
+    #sortBox > div {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+    }
+
+        #sortBox > div > div {
+            margin: .5rem;
+            height: calc(100% - 1rem);
+
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
+            #sortBox > div > div > div {
+                height: 100%;
+                background: #6f6f6f;
+            }
