@@ -33,5 +33,26 @@
 
             #sortBox > div > div > div {
                 height: 100%;
-                background: #6f6f6f;
+                width: 100%;
+                background: #afafaf;
             }
+
+                #sortBox > div > div > div.select-gray {
+                    background: #7f7f7f;
+                }
+
+                #sortBox > div > div > div.select-orange {
+                    background: rgb(255, 168, 55);
+                }
+
+                #sortBox > div > div > div.select-red{
+                    background: rgb(255, 68, 68);
+                }
+
+                #sortBox > div > div > div.select-blue{
+                    background: rgb(56, 133, 206);
+                }
+
+                #sortBox > div > div > div.complete{
+                    background: rgb(95, 255, 167);
+                }

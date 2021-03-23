@@ -22,12 +22,13 @@
             <div class="setting">
                 <!--環境設定-->
                 <form id="envSetting">
+                    <!---->
                     <div class="numOfElements">
                         <div class="title">
                             <h4>要素の数</h4>
                         </div>
                         <div class="contents">
-                            <input type="number" name="numOfElements" value="10" min="10" max="50">
+                            <input type="number" name="numOfElements" value="10" min="5" max="500">
                         </div>
                     </div>
                     <button type="button" name="set">適応</button>
@@ -35,6 +36,7 @@
                 </form>
                 <!--ソートの設定-->
                 <form id="sortSetting">
+                    <!---->
                     <div class="typeSelection">
                         <div class="title">
                             <h4>ソートの種類</h4>
@@ -49,9 +51,29 @@
                             <label>
                                 <input name="sortType" type="radio" value="comb"><span>コムソート</span>
                             </label>
+                            <label>
+                                <input name="sortType" type="radio" value="insert_gnome"><span>挿入ソート/ノームソート</span>
+                            </label>
+                            <label>
+                                <input name="sortType" type="radio" value="selection"><span>選択ソート</span>
+                            </label>
+                            <label>
+                                <input name="sortType" type="radio" value="quick"><span>クイックソート</span>
+                            </label>
                         </div>
                     </div>
+                    <!---->
+                    <div class="waitMsec">
+                        <div class="title">
+                            <h4>処理の遅延(ミリ秒)</h4>
+                        </div>
+                        <div class="contents">
+                            <input type="number" name="waitMsec" value="50" min="0" max="100">
+                        </div>
+                    </div>
+                    <!---->
                     <button type="button" name="run">実行</button>
+                    <button type="button" name="reset">元に戻す</button>
                 </form>
             </div>
         </div>
