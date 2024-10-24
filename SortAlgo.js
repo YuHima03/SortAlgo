@@ -38,10 +38,10 @@ window.addEventListener("load", () => {
     }
 
     /**環境設定を適応 */
-    function setEnv(){
-        if(sortBox.classList.contains("err")){
+    function setEnv() {
+        if (sortBox.classList.contains("err")) {
             sortBox.classList.remove("err");
-            
+
             while (sortBox.childNodes.length > 0) {
                 sortBox.removeChild(sortBox.lastChild)
             }
@@ -57,15 +57,15 @@ window.addEventListener("load", () => {
         /**@type {!number} */
         let numOfElements = Math.min(Math.max(5, Number(envSetting.numOfElements.value)), 500);
 
-        if(sortBoxContent.childElementCount > numOfElements){
+        if (sortBoxContent.childElementCount > numOfElements) {
             //要素を削除
-            while(sortBoxContent.childElementCount > numOfElements){
+            while (sortBoxContent.childElementCount > numOfElements) {
                 sortBoxContent.lastChild.remove();
             }
         }
-        else{
+        else {
             //要素の追加
-            while(sortBoxContent.childElementCount < numOfElements){
+            while (sortBoxContent.childElementCount < numOfElements) {
                 let newElement = document.createElement("div");
                 newElement.dataset["index"] = sortBoxContent.childElementCount;
 
@@ -90,7 +90,7 @@ window.addEventListener("load", () => {
     setEnv(); //読み込み時にも一回実行
 
     /**要素をランダムに入れ替える */
-    function setElementRandomly(){        
+    function setElementRandomly() {
         let elements = sortBoxContent.children;
 
         /**@type {!number} */
@@ -103,9 +103,9 @@ window.addEventListener("load", () => {
         });
 
         //ランダムに入れ替える
-        for(let i = 0; i < numOfChild * 10; i++){
+        for (let i = 0; i < numOfChild * 10; i++) {
             let index = [Math.floor(Math.random() * numOfChild), Math.floor(Math.random() * numOfChild)];
-            
+
             sortBoxContent.insertBefore(elements[index[0]], elements[index[1]]);
             sortBoxContent.insertBefore(elements[index[1]], elements[index[0]]);
         }
@@ -146,7 +146,7 @@ window.addEventListener("load", () => {
          * @param {number} i 
          * @param {string} color
          */
-        function setColor(i, color){
+        function setColor(i, color) {
             [...sortElementList][i].classList.add(`select-${color}`);
 
             return;
@@ -155,7 +155,7 @@ window.addEventListener("load", () => {
          * 色の解除
          * @param  {...string} color 
          */
-        function unsetColor(...color){
+        function unsetColor(...color) {
             [...color].forEach(colStr => {
                 [...sortBoxContent.getElementsByClassName(`select-${colStr}`)].forEach(element => {
                     element.classList.remove(`select-${colStr}`);
@@ -164,83 +164,83 @@ window.addEventListener("load", () => {
 
             return;
         }
-        
-        switch(sortType){
-            case("bubble"):
+
+        switch (sortType) {
+            case ("bubble"):
                 //バブルソート
 
-                while(true){
+                while (true) {
                     let flag = true;
 
-                    for(let i = 0; i + 1 < elementArray.length; i++){
+                    for (let i = 0; i + 1 < elementArray.length; i++) {
                         //色を解除
                         unsetColor("red", "blue");
 
                         //選択中のやつを赤色に
                         setColor(i, "red");
 
-                        if(elementArray[i] < elementArray[i+1]){
+                        if (elementArray[i] < elementArray[i + 1]) {
                             //入れ替え対象を青色に
-                            setColor(i+1, "blue");
+                            setColor(i + 1, "blue");
 
                             await wait(waitMsec);
 
                             unsetColor("blue");
 
                             //入れ替え
-                            swapArrayValue(elementArray, i, i+1);
+                            swapArrayValue(elementArray, i, i + 1);
 
-                            sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i+1]);
-                            sortBoxContent.insertBefore([...sortElementList][i+1], [...sortElementList][i]);
-                            
+                            sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i + 1]);
+                            sortBoxContent.insertBefore([...sortElementList][i + 1], [...sortElementList][i]);
+
                             flag = false;
                         }
 
                         await wait(waitMsec);
                     }
 
-                    if(flag) break;
+                    if (flag) break;
                 }
 
                 break;
 
-            case("shaker"):
+            case ("shaker"):
                 //シェーカーソート
 
                 var type = 0;
-                while(true){
+                while (true) {
                     let flag = true;
 
-                    if(type % 2 == 0){
-                        for(let i = 0; i + 1 < elementArray.length; i++){
+                    if (type % 2 == 0) {
+                        for (let i = 0; i + 1 < elementArray.length; i++) {
                             //色を解除
                             unsetColor("red", "blue");
 
                             //選択中のやつを赤色に
                             setColor(i, "red");
 
-                            if(elementArray[i] < elementArray[i+1]){
+                            if (elementArray[i] < elementArray[i + 1]) {
                                 //入れ替え対象を青色に
-                                setColor(i+1, "blue");
+                                setColor(i + 1, "blue");
 
                                 await wait(waitMsec);
 
                                 unsetColor("blue");
 
                                 //入れ替え
-                                swapArrayValue(elementArray, i, i+1);
+                                swapArrayValue(elementArray, i, i + 1);
 
-                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i+1]);
-                                sortBoxContent.insertBefore([...sortElementList][i+1], [...sortElementList][i]);
-                                
+                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i + 1]);
+                                sortBoxContent.insertBefore([...sortElementList][i + 1], [...sortElementList][i]);
+
                                 flag = false;
                             }
 
                             await wait(waitMsec);
                         }
                     }
-                    else{
-                        for(let i = elementArray.length - 1; i > 0; i--){
+                    else {
+                        for (let i = elementArray.length - 1; i > 0; i--) {
                             //逆順
 
                             //色を解除
@@ -249,20 +249,20 @@ window.addEventListener("load", () => {
                             //選択中のやつを赤色に
                             setColor(i, "red");
 
-                            if(elementArray[i-1] < elementArray[i]){
+                            if (elementArray[i - 1] < elementArray[i]) {
                                 //入れ替え対象を青色に
-                                setColor(i-1, "blue");
+                                setColor(i - 1, "blue");
 
                                 await wait(waitMsec);
 
                                 unsetColor("blue");
 
                                 //入れ替え
-                                swapArrayValue(elementArray, i-1, i);
+                                swapArrayValue(elementArray, i - 1, i);
 
-                                sortBoxContent.insertBefore([...sortElementList][i-1], [...sortElementList][i]);
-                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i-1]);
-                                
+                                sortBoxContent.insertBefore([...sortElementList][i - 1], [...sortElementList][i]);
+                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i - 1]);
+
                                 flag = false;
                             }
 
@@ -271,62 +271,62 @@ window.addEventListener("load", () => {
                     }
 
                     type++;
-                    if(flag) break;
+                    if (flag) break;
                 }
 
                 break;
 
-            case("comb"):
+            case ("comb"):
                 //コムソート
 
                 /**間隔 */
                 var h = Math.floor(elementArray.length / 1.3);
 
-                while(true){
+                while (true) {
                     let flag = true;
 
-                    for(let i = 0; i + h < elementArray.length; i++){
+                    for (let i = 0; i + h < elementArray.length; i++) {
                         //色を解除
                         unsetColor("red", "blue", "orange");
 
                         //選択中のやつを赤色に
                         setColor(i, "red");
-                        setColor(i+h, "blue");
+                        setColor(i + h, "blue");
 
-                        if(elementArray[i] < elementArray[i+h]){
+                        if (elementArray[i] < elementArray[i + h]) {
                             await wait(waitMsec);
 
                             unsetColor("red", "blue");
-                            setColor(i+h, "red");
+                            setColor(i + h, "red");
                             setColor(i, "blue");
 
                             //入れ替え
-                            swapArrayValue(elementArray, i, i+h);
-                            
-                            sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i+h]);
-                            sortBoxContent.insertBefore([...sortElementList][i+h], [...sortElementList][i]);
-                            
+                            swapArrayValue(elementArray, i, i + h);
+
+                            sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i + h]);
+                            sortBoxContent.insertBefore([...sortElementList][i + h], [...sortElementList][i]);
+
                             flag = false;
                         }
 
                         await wait(waitMsec);
                     }
 
-                    if(flag && h === 1) break;
+                    if (flag && h === 1) break;
 
                     h = Math.max(1, Math.floor(h / 1.3));
                 }
 
                 break;
 
-            case("insert_gnome"):
+            case ("insert_gnome"):
                 //挿入ソート or ノームソート
                 //厳密には違うが見た感じの処理内容に差がない
 
                 let indexFlag = 0;
-                while(true){
+                while (true) {
                     let reverseFlag = -1;
-                    for(let i = indexFlag; i + 1 < elementArray.length; i++){
+                    for (let i = indexFlag; i + 1 < elementArray.length; i++) {
                         //色を解除
                         unsetColor("red");
 
@@ -334,7 +334,7 @@ window.addEventListener("load", () => {
                         setColor(i, "red");
 
                         //逆順を見つけたらそこから戻っていく
-                        if(elementArray[i] < elementArray[i+1]){
+                        if (elementArray[i] < elementArray[i + 1]) {
                             reverseFlag = i + 1;
                             break;
                         }
@@ -342,23 +342,23 @@ window.addEventListener("load", () => {
                         await wait(waitMsec);
                     }
 
-                    if(reverseFlag > -1){
+                    if (reverseFlag > -1) {
                         //戻っていく
-                        for(let i = reverseFlag; i > 0; i--){
+                        for (let i = reverseFlag; i > 0; i--) {
                             //色を解除
                             unsetColor("red");
 
                             //選択中のやつを赤色に
                             setColor(i, "red");
 
-                            if(elementArray[i-1] < elementArray[i]){
+                            if (elementArray[i - 1] < elementArray[i]) {
                                 //入れ替え
-                                swapArrayValue(elementArray, i-1, i);
+                                swapArrayValue(elementArray, i - 1, i);
 
-                                sortBoxContent.insertBefore([...sortElementList][i-1], [...sortElementList][i]);
-                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i-1]);
+                                sortBoxContent.insertBefore([...sortElementList][i - 1], [...sortElementList][i]);
+                                sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][i - 1]);
                             }
-                            else{
+                            else {
                                 indexFlag = i;
                                 break;
                             }
@@ -366,7 +366,7 @@ window.addEventListener("load", () => {
                             await wait(waitMsec);
                         }
                     }
-                    else{
+                    else {
                         //ソート完了
                         break;
                     }
@@ -374,20 +374,20 @@ window.addEventListener("load", () => {
 
                 break;
 
-            case("selection"):
+            case ("selection"):
                 //選択ソート
 
-                for(let i = 0; i < elementArray.length; i++){
+                for (let i = 0; i < elementArray.length; i++) {
                     let max = i;
 
                     unsetColor("blue");
                     setColor(i, "blue");
 
-                    for(let j = i; j < elementArray.length; j++){
+                    for (let j = i; j < elementArray.length; j++) {
                         unsetColor("red");
                         setColor(j, "red");
 
-                        if(elementArray[j] > elementArray[max]){
+                        if (elementArray[j] > elementArray[max]) {
                             max = j;
 
                             unsetColor("orange");
@@ -398,7 +398,7 @@ window.addEventListener("load", () => {
                     }
 
                     //入れ替え
-                    if(i != max){
+                    if (i != max) {
                         swapArrayValue(elementArray, i, max);
 
                         sortBoxContent.insertBefore([...sortElementList][i], [...sortElementList][max]);
@@ -411,22 +411,22 @@ window.addEventListener("load", () => {
 
                 break;
 
-            case("quick"):
+            case ("quick"):
                 //クイックソート
-                
+
                 /**
                  * 
                  * @param {Array.<!number>} array 
                  * @param {!number} left pos
                  * @param {!number} right pos
                  */
-                async function quickSort(left, right){
+                async function quickSort(left, right) {
                     //だいたい真ん中の数をとる
                     let pivot = Math.floor((right + left) / 2);
                     let pivotValue = elementArray[pivot];
 
                     [...sortBoxContent.children].forEach((element, index) => {
-                        if (left <= index && index < right){
+                        if (left <= index && index < right) {
                             setColor(index, "gray");
                         }
                     });
@@ -438,9 +438,9 @@ window.addEventListener("load", () => {
                     let leftEnd = left;
                     let rightEnd = right;
 
-                    while(true){
+                    while (true) {
                         //ピボットより小さい値を左から探索
-                        while(elementArray[left] > pivotValue){
+                        while (elementArray[left] > pivotValue) {
                             setColor(left, "red");
 
                             await wait(waitMsec);
@@ -453,7 +453,7 @@ window.addEventListener("load", () => {
                         setColor(left, "red");
 
                         //ピボットより大きい値を右から探索
-                        while(elementArray[right] < pivotValue){
+                        while (elementArray[right] < pivotValue) {
                             setColor(right, "blue");
 
                             await wait(waitMsec);
@@ -473,7 +473,7 @@ window.addEventListener("load", () => {
 
                         await wait(waitMsec);
 
-                        if(left >= right){
+                        if (left >= right) {
                             break;
                         }
                     }
@@ -481,8 +481,8 @@ window.addEventListener("load", () => {
                     unsetColor("gray", "red", "blue", "orange");
 
                     //左右に分割
-                    if(left > leftEnd + 1) await quickSort(leftEnd, left - 1);
-                    if(right + 1 < rightEnd) await quickSort(right, rightEnd);
+                    if (left > leftEnd + 1) await quickSort(leftEnd, left - 1);
+                    if (right + 1 < rightEnd) await quickSort(right, rightEnd);
 
                     return;
                 }
@@ -491,8 +491,8 @@ window.addEventListener("load", () => {
 
                 break;
 
-            case("comb_r"):
-                
+            case ("comb_r"):
+
 
                 break;
         }
@@ -508,23 +508,23 @@ window.addEventListener("load", () => {
     sortSetting.querySelector("[name='reset']").addEventListener("click", async () => {
         let sortElementList = sortBoxContent.children;
 
-        if(sortArrayData.length === sortBoxContent.childElementCount){
+        if (sortArrayData.length === sortBoxContent.childElementCount) {
             let nowData = [];
             [...sortElementList].forEach(element => {
                 nowData.push(Number(element.dataset["index"]));
                 element.classList.add("select-gray");
             });
 
-            for(let index = 0; index < sortArrayData.length; index++){
+            for (let index = 0; index < sortArrayData.length; index++) {
                 let value = sortArrayData[index];
                 let targetIndex = nowData.lastIndexOf(value);
 
                 swapArrayValue(nowData, index, targetIndex);
-                
+
                 //入れ替え
                 sortBoxContent.insertBefore([...sortElementList][index], [...sortElementList][targetIndex]);
                 sortBoxContent.insertBefore([...sortElementList][targetIndex], [...sortElementList][index]);
-            
+
                 [...sortElementList][index].classList.remove("select-gray");
 
                 await wait(50);
