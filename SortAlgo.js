@@ -16,11 +16,35 @@ window.addEventListener("load", () => {
      */
     let envSetting = document.getElementById("envSetting");
 
+    /**
+     * 配列の2要素を入れ替える
+     * @param {Array.<any>} array 
+     * @param {number} idx1 
+     * @param {number} idx2 
+     */
+    function swapArrayValue(array, idx1, idx2) {
+        const v = array[idx1]
+        array[idx1] = array[idx2]
+        array[idx2] = v
+    }
+
+    /**
+     * 指定された時間だけ待機するPromiseを返す
+     * @param {number} msec 
+     * @returns {Promise}
+     */
+    function wait(msec) {
+        return new Promise(resolve => setTimeout(resolve, msec))
+    }
+
     /**環境設定を適応 */
     function setEnv(){
         if(sortBox.classList.contains("err")){
             sortBox.classList.remove("err");
-            removeAllChildElements(sortBox);
+            
+            while (sortBox.childNodes.length > 0) {
+                sortBox.removeChild(sortBox.lastChild)
+            }
 
             let tmp = document.createElement("div");
             tmp.appendChild(document.createElement("div"));
@@ -402,7 +426,7 @@ window.addEventListener("load", () => {
                     let pivotValue = elementArray[pivot];
 
                     [...sortBoxContent.children].forEach((element, index) => {
-                        if(!valueBetween(index, left, right, true)){
+                        if (left <= index && index < right){
                             setColor(index, "gray");
                         }
                     });
